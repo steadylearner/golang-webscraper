@@ -58,7 +58,6 @@ func main() {
 
 	if response, ok := resp.Result().(*Response); !ok {
 		log.Fatal(errors.New("invalid response format"))
-		return
 	} else {
 		for index, post := range response.Data.Children {
 			num := index + 1

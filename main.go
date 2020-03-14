@@ -2,26 +2,20 @@ package main
 
 import (
     "fmt"
-    "net/http"
-    "io/ioutil"
-    // "os"
     "log"
+     "github.com/go-resty/resty/v2"
 )
 
 func main() {
-    target := "https://raw.githubusercontent.com/steadylearner/golang-webscraper/master/README.md"
-    // target := "https://raw.githubusercontent.com/steadylearner/Rust-Full-Stack/master/README.md"
+    target := "https://www.reddit.com/r/rust/new/.json?limit=10"
+    client := resty.New()
 
-    response, err := http.Get(target)
+    // https://github.com/go-resty/resty#simple-get
+    response, err := client.R().Get(target)
     if err != nil {
         log.Fatal(err)
     } else {
-        defer response.Body.Close()
-        body, err := ioutil.ReadAll(response.Body)
-        if err != nil {
-            log.Fatal(err)
-        }
-        fmt.Printf("%s\n", string(body))
+        fmt.Printf("%s\n", response) // body
     }
 }
 
